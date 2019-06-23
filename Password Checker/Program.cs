@@ -7,22 +7,44 @@ namespace PasswordChecker
 {
     class Program
     {
+
         static void Main(string[] args)
         {
-            var passwordChecker = new Passw0rd("");
-            var messageToPrint = passwordChecker.checkPassword("yASDFA#$#$%tt1");
-            Console.WriteLine(messageToPrint);
+            var passwordTest = new PasswordTest("passwdin.txt");
+            var passwordChecker = new Passw0rd();
+
+            foreach (string password in passwordTest.InputPasswords)
+            {
+                var messageToPrint = passwordChecker.checkPassword(password);
+                Console.WriteLine(messageToPrint);
+            }
+            //todo: need to output to file
+        }
+    }
+
+    class PasswordTest
+    {
+        private readonly string _fileInput;
+        public List<string> InputPasswords { get; }
+
+        public PasswordTest(string fileInput)
+        {
+            _fileInput = fileInput;
+            this.InputPasswords = this.LoadInputPasswords();
+        }
+        public List<string> LoadInputPasswords()
+        {
+            var readInPutFile = new FileReader();
+            return readInPutFile.ReadFile(this._fileInput).ToList();
         }
     }
 
     class Passw0rd
     {
-        //private string newAttemptedPassword;
         private List<string> oldPasswords;
 
-        public Passw0rd(string password)
+        public Passw0rd()
         {
-            //this.newAttemptedPassword = password;
         }
 
         public string checkPassword(string psswd)
@@ -112,7 +134,7 @@ namespace PasswordChecker
                 if (char.IsUpper(psswd[i])) numberOfUpperCaseLetters++;
             }
 
-            return numberOfUpperCaseLetters >=1;
+            return numberOfUpperCaseLetters >= 1;
         }
 
         private bool CheckIfAtLeastSixCharacters(string psswd)
