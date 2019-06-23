@@ -20,8 +20,7 @@ namespace PasswordChecker
 
             if (!CheckIfPreviousPasswordNotUsed(psswd))
             {
-                return "Your password has been used within the last six password changes.  " +
-                       "Please select a new password.";
+                return "Your password has been used within the last six password changes.";
             }
 
             if (!CheckIfAtLeastSixCharacters(psswd))

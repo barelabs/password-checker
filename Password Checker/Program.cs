@@ -11,6 +11,8 @@ namespace PasswordChecker
         //Dr. Ajoy Kumar
         static void Main()
         {
+            WriteSeparatorLine(2);
+
             //creates PasswordTest instance which provides set of passwords to test
             var passwordTest = new PasswordTest("passwdin.txt");
 
@@ -24,13 +26,24 @@ namespace PasswordChecker
                 var message = passwordChecker.checkPassword(password);
                 var formattedMessage = $"{password} - {message}";
                 Console.WriteLine(formattedMessage);
-                
+
                 //stores password results in PasswordTest class
                 passwordTest.AddPasswordResult(formattedMessage);
             }
 
             //writes out password results to file
             File.WriteAllLines("passwdout.txt", passwordTest.PasswordResults);
+            WriteSeparatorLine(2);
+            Console.WriteLine("Press any key to exit...");
+            Console.ReadLine();
+        }
+
+        private static void WriteSeparatorLine(int times)
+        {
+            for (int i = 0; i < times; i++)
+            {
+                Console.WriteLine("---------------------------------------------------------------------------");
+            }
         }
     }
 }
