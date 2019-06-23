@@ -10,7 +10,7 @@ namespace PasswordChecker
         static void Main(string[] args)
         {
             var passwordChecker = new Passw0rd("");
-            var messageToPrint = passwordChecker.checkPassword("H5ii55535");
+            var messageToPrint = passwordChecker.checkPassword("yASDFA#$#$%tt1");
             Console.WriteLine(messageToPrint);
         }
     }
@@ -56,10 +56,27 @@ namespace PasswordChecker
                 return "Your password must contain at least one special character.";
             }
 
+            if (!CheckIfAtLeastOneDigit(psswd))
+            {
+                return "Your password must contain at least one digit.";
+            }
+
             else
             {
                 return "Your password change has been successful!";
             }
+        }
+
+        private bool CheckIfAtLeastOneDigit(string psswd)
+        {
+            int numberOfDigits = 0;
+
+            for (int i = 0; i < psswd.Length; i++)
+            {
+                if (char.IsDigit(psswd[i])) numberOfDigits++;
+            }
+
+            return numberOfDigits >= 1;
         }
 
         private bool CheckIfAtLeastOneSpecialCharacter(string psswd)
