@@ -10,7 +10,7 @@ namespace PasswordChecker
         static void Main(string[] args)
         {
             var passwordChecker = new Passw0rd("");
-            var messageToPrint = passwordChecker.checkPassword("H5i55535");
+            var messageToPrint = passwordChecker.checkPassword("H5ii55535");
             Console.WriteLine(messageToPrint);
         }
     }
@@ -51,10 +51,27 @@ namespace PasswordChecker
                 return "Your password must contain at least two lower case letters.";
             }
 
+            if (!CheckIfAtLeastOneSpecialCharacter(psswd))
+            {
+                return "Your password must contain at least one special character.";
+            }
+
             else
             {
                 return "Your password change has been successful!";
             }
+        }
+
+        private bool CheckIfAtLeastOneSpecialCharacter(string psswd)
+        {
+            int numberOfSpecialCharacters = 0;
+
+            for (int i = 0; i < psswd.Length; i++)
+            {
+                if (!char.IsLetterOrDigit(psswd[i])) numberOfSpecialCharacters++;
+            }
+
+            return numberOfSpecialCharacters >= 1;
         }
 
         private bool CheckIfAtLeastTwoLowerCase(string psswd)
