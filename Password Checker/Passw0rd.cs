@@ -26,27 +26,27 @@ namespace PasswordChecker
 
             if (!CheckIfAtLeastSixCharacters(psswd))
             {
-                return "Your password must be at least six characters long.";
+                return "Password should be at least 6 characters strong.";
             }
 
             if (!CheckIfAtLeastOneUpperCase(psswd))
             {
-                return "Your password must contain at least one upper case letter.";
+                return "Password should contain at least one upper case letter.";
             }
 
             if (!CheckIfAtLeastTwoLowerCase(psswd))
             {
-                return "Your password must contain at least two lower case letters.";
+                return "Password should contain at least TWO lower case letters.";
             }
 
             if (!CheckIfAtLeastOneSpecialCharacter(psswd))
             {
-                return "Your password must contain at least one special character.";
+                return "Password should have at least one special character.";
             }
 
             if (!CheckIfAtLeastOneDigit(psswd))
             {
-                return "Your password must contain at least one digit.";
+                return "Password should contain at least one digit.";
             }
 
             else

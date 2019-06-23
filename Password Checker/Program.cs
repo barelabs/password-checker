@@ -21,11 +21,12 @@ namespace PasswordChecker
             foreach (string password in passwordTest.InputPasswords)
             {
                 //writes returned messages to console
-                var messageToPrint = passwordChecker.checkPassword(password);
-                Console.WriteLine(messageToPrint);
+                var message = passwordChecker.checkPassword(password);
+                var formattedMessage = $"{password} - {message}";
+                Console.WriteLine(formattedMessage);
                 
                 //stores password results in PasswordTest class
-                passwordTest.AddPasswordResult($"{password} - {messageToPrint}");
+                passwordTest.AddPasswordResult(formattedMessage);
             }
 
             //writes out password results to file
