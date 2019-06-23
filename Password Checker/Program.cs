@@ -8,17 +8,19 @@ namespace PasswordChecker
     class Program
     {
 
-        static void Main(string[] args)
+        static void Main()
         {
             var passwordTest = new PasswordTest("passwdin.txt");
             var passwordChecker = new Passw0rd();
 
             foreach (string password in passwordTest.InputPasswords)
             {
-                var messageToPrint = passwordChecker.checkPassword(password);
+                var messageToPrint = passwordChecker.CheckPassword(password);
                 Console.WriteLine(messageToPrint);
+                passwordTest.AddPasswordResult($"{password} - {messageToPrint}");
             }
             //todo: need to output to file
+            File.WriteAllLines("passwdout.txt", passwordTest.PasswordResults);
         }
     }
 
@@ -26,6 +28,7 @@ namespace PasswordChecker
     {
         private readonly string _fileInput;
         public List<string> InputPasswords { get; }
+        public List<string> PasswordResults = new List<string>();
 
         public PasswordTest(string fileInput)
         {
@@ -37,20 +40,21 @@ namespace PasswordChecker
             var readInPutFile = new FileReader();
             return readInPutFile.ReadFile(this._fileInput).ToList();
         }
+
+        public void AddPasswordResult(string passwordResult)
+        {
+            this.PasswordResults.Add(passwordResult);
+        }
     }
 
     class Passw0rd
     {
-        private List<string> oldPasswords;
+        private List<string> _oldPasswords;
 
-        public Passw0rd()
-        {
-        }
-
-        public string checkPassword(string psswd)
+        public string CheckPassword(string psswd)
         {
             var test = new FileReader();
-            oldPasswords = test.ReadFile("oldpasswd.txt");
+            _oldPasswords = test.ReadFile("oldpasswd.txt");
 
             if (!CheckIfPreviousPasswordNotUsed(psswd))
             {
@@ -145,7 +149,7 @@ namespace PasswordChecker
 
         private bool CheckIfPreviousPasswordNotUsed(string psswd)
         {
-            return !oldPasswords.Contains(psswd);
+            return !_oldPasswords.Contains(psswd);
         }
     }
 
