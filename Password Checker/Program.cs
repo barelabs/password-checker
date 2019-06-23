@@ -15,7 +15,7 @@ namespace PasswordChecker
 
             foreach (string password in passwordTest.InputPasswords)
             {
-                var messageToPrint = passwordChecker.CheckPassword(password);
+                var messageToPrint = passwordChecker.checkPassword(password);
                 Console.WriteLine(messageToPrint);
                 passwordTest.AddPasswordResult($"{password} - {messageToPrint}");
             }
@@ -51,7 +51,7 @@ namespace PasswordChecker
     {
         private List<string> _oldPasswords;
 
-        public string CheckPassword(string psswd)
+        public string checkPassword(string psswd)
         {
             var test = new FileReader();
             _oldPasswords = test.ReadFile("oldpasswd.txt");
