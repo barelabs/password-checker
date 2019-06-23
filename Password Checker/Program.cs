@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 
 namespace PasswordChecker
 {
@@ -9,7 +11,7 @@ namespace PasswordChecker
         {
             Console.WriteLine("Hello World!");
             var test = new FileReader();
-            test.ReadFile();
+            test.ReadFile("oldpasswd.txt");
         }
     }
 
@@ -30,20 +32,17 @@ namespace PasswordChecker
 
     class FileReader
     {
-        public void ReadFile()
+        public List<string> ReadFile(string filePath)
         {
             try
-            {   
-                using (StreamReader streamReader = new StreamReader("oldpasswd.txt"))
-                {
-                    string textLine = streamReader.ReadToEnd();
-                    Console.WriteLine(textLine);
-                }
+            {
+                return File.ReadAllLines(filePath).ToList();
             }
             catch (IOException error)
             {
                 Console.WriteLine("There was a problem with reading the file");
                 Console.WriteLine(error.Message);
+                return null;
             }
         }
     }
