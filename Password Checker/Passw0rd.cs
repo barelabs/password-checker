@@ -4,12 +4,19 @@ namespace PasswordChecker
 {
     class Passw0rd
     {
+        //List of old passwords to test against, to ensure user cannot use same password within last 6 times
+        //This list comes from a file called oldpasswd.txt below.  This file is hardcoded in this class
+        //to mimic the idea that a user cannot provide a list of old passwords.  In a production implementation,
+        //the old passwords would be hashed and come from a database.
         private List<string> _oldPasswords;
+
+        public Passw0rd()
+        {
+            this._oldPasswords = ImportOldPasswords();
+        }
 
         public string checkPassword(string psswd)
         {
-            var test = new FileReader();
-            _oldPasswords = test.ReadFile("oldpasswd.txt");
 
             if (!CheckIfPreviousPasswordNotUsed(psswd))
             {
@@ -19,7 +26,7 @@ namespace PasswordChecker
 
             if (!CheckIfAtLeastSixCharacters(psswd))
             {
-                return "Your password must be at least six characters long.  Please choose a longer password.";
+                return "Your password must be at least six characters long.";
             }
 
             if (!CheckIfAtLeastOneUpperCase(psswd))
@@ -105,6 +112,12 @@ namespace PasswordChecker
         private bool CheckIfPreviousPasswordNotUsed(string psswd)
         {
             return !_oldPasswords.Contains(psswd);
+        }
+
+        private List<string> ImportOldPasswords()
+        {
+            var test = new FileReader();
+            return test.ReadFile("oldpasswd.txt");
         }
     }
 }
