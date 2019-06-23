@@ -9,24 +9,45 @@ namespace PasswordChecker
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
-            var test = new FileReader();
-            test.ReadFile("oldpasswd.txt");
+            var passwordChecker = new Passw0rd("");
+            passwordChecker.checkPassword("hithere");
         }
     }
 
     class Passw0rd
     {
-        private readonly string password;
+        //private string newAttemptedPassword;
+        private List<string> oldPasswords;
 
         public Passw0rd(string password)
         {
-            this.password = password;
+            //this.newAttemptedPassword = password;
         }
 
         public string checkPassword(string psswd)
         {
-            return null;
+            var test = new FileReader();
+            oldPasswords = test.ReadFile("oldpasswd.txt");
+
+            if (CheckIfPreviousPasswordUsed(psswd))
+            {
+                var message = "Your password has been used within the last six password changes.  " +
+                              "Please select a new password.";
+                Console.WriteLine(message);
+                return message;
+            }
+
+            else
+            {
+                var message = "Your password change has been successful!";
+                Console.WriteLine(message);
+                return message;
+            }
+        }
+
+        private bool CheckIfPreviousPasswordUsed(string psswd)
+        {
+            return oldPasswords.Contains(psswd);
         }
     }
 
