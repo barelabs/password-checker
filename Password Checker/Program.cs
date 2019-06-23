@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 
 namespace PasswordChecker
 {
@@ -7,6 +8,8 @@ namespace PasswordChecker
         static void Main(string[] args)
         {
             Console.WriteLine("Hello World!");
+            var test = new FileReader();
+            test.ReadFile();
         }
     }
 
@@ -21,7 +24,27 @@ namespace PasswordChecker
 
         public string checkPassword(string psswd)
         {
+            return null;
+        }
+    }
 
+    class FileReader
+    {
+        public void ReadFile()
+        {
+            try
+            {   
+                using (StreamReader streamReader = new StreamReader("oldpasswd.txt"))
+                {
+                    string textLine = streamReader.ReadToEnd();
+                    Console.WriteLine(textLine);
+                }
+            }
+            catch (IOException error)
+            {
+                Console.WriteLine("There was a problem with reading the file");
+                Console.WriteLine(error.Message);
+            }
         }
     }
 }
