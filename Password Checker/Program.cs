@@ -63,7 +63,7 @@ namespace PasswordChecker
 
             else
             {
-                return "Your password change has been successful!";
+                return "Password Accepted";
             }
         }
 
