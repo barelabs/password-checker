@@ -10,7 +10,7 @@ namespace PasswordChecker
         static void Main(string[] args)
         {
             var passwordChecker = new Passw0rd("");
-            var messageToPrint = passwordChecker.checkPassword("hi");
+            var messageToPrint = passwordChecker.checkPassword("Hiddddddd");
             Console.WriteLine(messageToPrint);
         }
     }
@@ -41,10 +41,27 @@ namespace PasswordChecker
                 return "Your password must be at least six characters long.  Please choose a longer password.";
             }
 
+            if (!CheckIfAtLeastOneUpperCase(psswd))
+            {
+                return "Your password must contain at least one upper case letter.";
+            }
+
             else
             {
                 return "Your password change has been successful!";
             }
+        }
+
+        private bool CheckIfAtLeastOneUpperCase(string psswd)
+        {
+            for (int i = 0; i < psswd.Length; i++)
+            {
+                //This loop exits as soon as one upper case is found,
+                //since the requirements state only one upper case letter is required
+                if (char.IsUpper(psswd[i])) return true;
+            }
+
+            return false;
         }
 
         private bool CheckIfAtLeastSixCharacters(string psswd)
