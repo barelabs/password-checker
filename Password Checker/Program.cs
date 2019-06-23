@@ -10,7 +10,8 @@ namespace PasswordChecker
         static void Main(string[] args)
         {
             var passwordChecker = new Passw0rd("");
-            passwordChecker.checkPassword("hithere");
+            var messageToPrint = passwordChecker.checkPassword("hi");
+            Console.WriteLine(messageToPrint);
         }
     }
 
@@ -29,25 +30,32 @@ namespace PasswordChecker
             var test = new FileReader();
             oldPasswords = test.ReadFile("oldpasswd.txt");
 
-            if (CheckIfPreviousPasswordUsed(psswd))
+            if (!CheckIfPreviousPasswordNotUsed(psswd))
             {
-                var message = "Your password has been used within the last six password changes.  " +
-                              "Please select a new password.";
-                Console.WriteLine(message);
-                return message;
+                return "Your password has been used within the last six password changes.  " +
+                                "Please select a new password.";
+            }
+
+            if (!CheckIfAtLeastSixCharacters(psswd))
+            {
+                return "Your password must be at least six characters long.  Please choose a longer password.";
             }
 
             else
             {
-                var message = "Your password change has been successful!";
-                Console.WriteLine(message);
-                return message;
+                return "Your password change has been successful!";
             }
         }
 
-        private bool CheckIfPreviousPasswordUsed(string psswd)
+        private bool CheckIfAtLeastSixCharacters(string psswd)
         {
-            return oldPasswords.Contains(psswd);
+            var numberOfCharacters = psswd.Length;
+            return numberOfCharacters >= 6;
+        }
+
+        private bool CheckIfPreviousPasswordNotUsed(string psswd)
+        {
+            return !oldPasswords.Contains(psswd);
         }
     }
 
